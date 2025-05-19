@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    
+    <ul>
+        {% for item in qr %}
+            <li>{{ item.task }}</li>
+            <li>{{ item.dat }}</li>
+            <li>{{ item.select }}</li>
+            <br>
+
+        {% empty %}
+            <li>No matching tasks found.</li>
+        {% endfor %}
+    </ul>
+    
+
+
+
+</body>
+</html>

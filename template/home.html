@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <h1 style="font-style: italic;">Hi {{user.username}}</h1>
+    <nav>
+        <a href="{% url 'logout' %}">Logout</a>
+
+        <form method="get" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input type="text" name="q" placeholder="Search tasks">
+            <button type="submit">Search</button>
+        </form>
+
+    </nav>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+    <br>
+    <a href="{% url 'task' %}">Back to Upload</a>
+
+    <!-- paginator starts from here -->
+
+    {% for dataa in page_obj %}
+        <ul>
+            <li>{{dataa.task}}</li>
+            <li>{{dataa.dat}}</li>
+            <a href="{% url 'update' dataa.id %}">Update</a>
+            <a href="{% url 'delete' dataa.id %}">Delete</a>
+        </ul>
+        
+    {% endfor %}
+    
+
+    
+        <!-- pagination control -->
+
+     <div class="pagination">
+        <span>
+            {% if page_obj.has_previous %}
+                <a href="?page=1">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            <div>
+                page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+            </div>
+
+            {% if page_obj.has_next %}
+
+                <a href="?page={{ page_obj.next_page_number }}" >Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" >Last</a>
+    
+            {% endif %}
+
+        </span>
+
+     </div>
+
+</body>
+</html>

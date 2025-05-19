@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <h1 style="font-style: italic;">Hi {{user.username}}</h1>
+    <nav>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+    <br>
+    <a href="{% url 'home' %}">View Task</a>
+    <br>
+    <form method="post" enctype="multipart/form-data" style="padding: 20px;">
+            {% csrf_token %}
+        <label> Task:
+            <input type="text" required name="task" >
+        </label>
+        <label> Date:
+            <input type="date" required name="date" >
+        </label>
+        <label> Select:
+            <select required name="options">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+            <button type="submit">Submit</button>
+        </label>
+    </form>
+
+</body>
+</html>
